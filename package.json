@@ -1,0 +1,35 @@
+{
+  "name": "workflow-automation",
+  "version": "1.0.0",
+  "description": "A practical task automation system with GitHub integration and RESTful APIs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --coverage",
+    "lint": "eslint src/**/*.js"
+  },
+  "keywords": [
+    "workflow",
+    "automation",
+    "task-management",
+    "api",
+    "github-integration"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0",
+    "better-sqlite3": "^9.2.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "eslint": "^8.55.0",
+    "supertest": "^6.3.3"
+  }
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Create task from GitHub issue",
+    "description": "Automatically create a task when a GitHub issue is opened",
+    "trigger_type": "github_issue",
+    "trigger_config": {
+      "condition": {
+        "field": "action",
+        "operator": "equals",
+        "value": "opened"
+      }
+    },
+    "action_type": "create_task",
+    "action_config": {
+      "title": "GitHub Issue: {{issue_title}}",
+      "description": "Issue #{{issue_number}} from {{repository}}",
+      "priority": "medium",
+      "status": "pending",
+      "tags": ["github", "issue"]
+    },
+    "enabled": true
+  },
+  {
+    "name": "Auto-assign high priority tasks",
+    "description": "Automatically assign high priority tasks to team lead",
+    "trigger_type": "task_created",
+    "trigger_config": {
+      "condition": {
+        "field": "priority",
+        "operator": "equals",
+        "value": "high"
+      }
+    },
+    "action_type": "assign_task",
+    "action_config": {
+      "task_id": "{{task_id}}",
+      "assignee": "team_lead"
+    },
+    "enabled": true
+  },
+  {
+    "name": "Create task on PR merge",
+    "description": "Create a deployment task when a PR is merged to main",
+    "trigger_type": "github_pr",
+    "trigger_config": {
+      "condition": {
+        "field": "action",
+        "operator": "equals",
+        "value": "closed"
+      }
+    },
+    "action_type": "create_task",
+    "action_config": {
+      "title": "Deploy PR #{{pr_number}}: {{pr_title}}",
+      "description": "Deploy changes from {{repository}}",
+      "priority": "high",
+      "status": "pending",
+      "assigned_to": "devops_team",
+      "tags": ["deployment", "github"]
+    },
+    "enabled": true
+  },
+  {
+    "name": "Notify on task completion",
+    "description": "Send notification when a task is completed",
+    "trigger_type": "task_updated",
+    "trigger_config": {
+      "condition": {
+        "field": "status",
+        "operator": "equals",
+        "value": "completed"
+      }
+    },
+    "action_type": "send_notification",
+    "action_config": {
+      "message": "Task '{{title}}' has been completed by {{assigned_to}}!"
+    },
+    "enabled": true
+  },
+  {
+    "name": "Create task on release",
+    "description": "Create post-release tasks when a new release is published",
+    "trigger_type": "github_release",
+    "trigger_config": {
+      "condition": {
+        "field": "action",
+        "operator": "equals",
+        "value": "published"
+      }
+    },
+    "action_type": "create_task",
+    "action_config": {
+      "title": "Post-release activities for {{release_tag}}",
+      "description": "Complete post-release checklist for {{release_name}}",
+      "priority": "medium",
+      "status": "pending",
+      "tags": ["release", "checklist"]
+    },
+    "enabled": true
+  }
+]
